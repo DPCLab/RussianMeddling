@@ -13,7 +13,7 @@ def demo_loop():
     print_spacer()
     print_spacer()
     text = input(prefix + Fore.LIGHTBLACK_EX + "(enter text) " + Fore.MAGENTA)
-    response = requests.get("https://ru.dpccdn.net/analyze/" + quote(text, safe=''))).json()
+    response = requests.get("https://ru.dpccdn.net/analyze/" + quote(text, safe='')).json()
     percent_troll = 100*(response['master'] + 1)/2
     explanation = Style.RESET_ALL + f"— {percent_troll:.1f}% — {len(response['tokenized'])} unique tokens processed"
     if response['master'] > 0.25:
