@@ -1,5 +1,9 @@
 import pickle
 import nltk
+import zipfile
+import urllib
+import random
+import string
 from nltk.tokenize.regexp import WordPunctTokenizer
 nltk.download("punkt")
 
@@ -18,8 +22,10 @@ class TrollAnalyzer:
         "tokenized": predictions
     }
 
-def load_analyzer(model_path = "./models/troll_model.pkl"):
-    with open(model_path, "rb") as infile:
+def load_analyzer(model_path = "https://storage.googleapis.com/troll-tweets/troll_model.pkl"):
+    uniq = ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
+    urllib.request.urlretrieve(model_path, "/tmp/troll_model.pkl-" + uniq)
+    with open("/tmp/troll_model.pkl-" + uniq, "rb") as infile:
         model = pickle.load(infile)
         return TrollAnalyzer(model)
     
